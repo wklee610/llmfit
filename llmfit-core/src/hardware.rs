@@ -2059,6 +2059,15 @@ pub fn gpu_memory_bandwidth_gbps(name: &str) -> Option<f64> {
     }
 
     // ── Apple Silicon (unified memory bandwidth) ───────────────────
+    if lower.contains("m5 max") {
+        return Some(614.0);
+    }
+    if lower.contains("m5 pro") {
+        return Some(307.0);
+    }
+    if lower.contains("m5") {
+        return Some(153.6);
+    }
     if lower.contains("m4 ultra") {
         return Some(819.0);
     }
@@ -2593,6 +2602,15 @@ mod tests {
             super::gpu_memory_bandwidth_gbps("Apple M4 Pro"),
             Some(273.0)
         );
+        assert_eq!(
+            super::gpu_memory_bandwidth_gbps("Apple M5 Max"),
+            Some(614.0)
+        );
+        assert_eq!(
+            super::gpu_memory_bandwidth_gbps("Apple M5 Pro"),
+            Some(307.0)
+        );
+        assert_eq!(super::gpu_memory_bandwidth_gbps("Apple M5"), Some(153.6));
     }
 
     #[test]
